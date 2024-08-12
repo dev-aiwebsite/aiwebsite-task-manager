@@ -1,0 +1,872 @@
+<style>
+    * {
+        box-sizing: border-box;
+        position: relative;
+        margin: 0;
+        /* line-height: 1.2; */
+        /* outline: solid 2px #8af7bb73; */
+    }
+    /*standout header and footer */
+    #vbid-5552aa4e-w1xotg0n,
+    #vbid-5552aa4e-45e2dwh2 {
+        display: none !important;
+    }
+    
+    
+    :where(.task-manager) :where(h1,h2,h3,h4,h5) {
+        margin: 0;
+    }
+    .flex-row {
+        display: flex;
+        flex-direction: row;
+    }
+    .flex-col {
+        display: flex;
+        flex-direction: column;
+    }
+    .border-round {
+        border-radius: 1.4em;
+        border: solid 1px #80808080;
+    }
+    .hide {
+        display: none !important;
+    }
+    
+    .center-center {
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .disabled {
+        pointer-events: none;
+        filter: grayscale(1) contrast(.1);
+        user-select: none;
+    }
+    
+    :root {
+        --blue: #11BBE1;
+        --grey-light: #80808080;
+    }
+    
+    .task-manager {
+        font-size: clamp(14px, calc(3vw - 1.9em), 20px);
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        max-width: 1400px;
+        padding: min(4em, 5vw);
+        margin: auto;
+    }
+    
+    
+    .task-manager button.loading {
+        pointer-events: none;
+        user-select: none;
+        opacity: .5;
+    }
+    .task-manager button.loading:after {
+        content: "";
+        position: absolute;
+        aspect-ratio: 1;
+        width: 1em;
+        height: auto;
+        background: var(--blue);
+        border: solid 2px #fff;
+        border-radius: 50em;
+        border-right: transparent;
+        border-top: transparent;
+        top: 50%;
+        translate: -50% -50%;
+        animation: loading 1s linear infinite;
+    }
+    
+    
+    .task-manager button.loading:before {
+        content: "Submitting...";
+        position: absolute;
+        width: -webkit-fill-available;
+        background: var(--blue);
+        text-align: start;
+    }
+    
+    
+    @keyframes loading {
+        to {rotate: 360deg}
+    }
+    
+    
+    .task-manager dialog {
+        border: none;
+        background-color: transparent;
+    }
+    .task-manager .dialog-close-btn:hover {
+        color: red;
+    }
+    
+    .task-manager .dialog-close-btn {
+        border: none;
+        position: absolute;
+        z-index: 9;
+        font-size: 1.2em;
+        border-radius: 50em;
+        right: 0px;
+        top: 0;
+        line-height: 1;
+        cursor: pointer;
+        translate: 100% -100%;
+        
+    }
+    
+    .task-manager button {
+        cursor: pointer;
+    }
+    .task-manager dialog::backdrop {
+        background-color: #0005;
+        backdrop-filter: blur(2px);
+    }
+    .task-manager .btn-primary {
+        background-color: var(--blue);
+        border: none;
+        color: #fff;
+        padding: .8em 1.5em;
+        border-radius: .25em;
+        cursor: pointer;
+    }
+    
+    .task-manager .btn-secondary {
+        background-color: #fff;
+        color: var(--blue);
+        border-color: currentColor;
+        border: solid 1px;
+        padding: .8em 1.5em;
+        border-radius: .25em;
+        cursor: pointer;
+    }
+    
+    .task-manager .login-dialog {
+        margin: auto;
+        margin-top: 100px;
+    }
+    
+    .task-manager #login-form {
+        background-color: #fff;
+        padding: 2em;
+        border-radius: 1em;
+        box-shadow: 0 0 1em #0002;
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+    }
+    
+    .task-manager #login-form input {
+        border: solid 1px #f0f0f0;
+        background-color: #f5f5f5;
+        padding: .8em 1.5em;
+        border-radius: .25em;
+    }
+    .task-manager #login-form .login-submit-btn {
+        background-color: var(--blue);
+        color: #fff;
+        border: none;
+        border-radius: .25em;
+        border-radius: 0;
+        padding: .8em 1.5em;
+        width: 100%;
+        cursor: pointer;
+        margin-left: 10px;
+        font-weight: bold;
+        width: fit-content;
+    }
+    .task-manager #login-form .login-email-input { 
+        border-radius: 10em 0 0 10em;
+    
+    }
+    
+    
+    .task-manager .taskFormDialog {
+        background: #FFFFFF;
+        border: 1px solid rgba(128, 128, 128, 0.5);
+        border-radius: 1em;
+        padding: 2em;
+        overflow: visible;
+    }
+    .task-manager .taskFormDialog *:not(button) {
+    text-align: start;
+    }
+    .taskFormDialog .form-item {
+        margin-bottom: 1em;
+    }
+    
+    .taskFormDialog .form-title {
+        color: var(--blue);
+        font-size: 1.4em;
+        display: block;
+        margin-bottom: 1em;
+    
+        
+    }
+    .taskFormDialog :where(input, select) {
+        border: none;
+        border-bottom: solid 1px var(--grey-light);
+        font-size: 1.2em;
+        outline: none;
+    }
+    
+    .taskFormDialog option {
+        font-size: 14px;
+    }
+    
+    .taskFormDialog .form-item-title {
+        font-size: .7em;
+        color: var(--blue);
+        opacity: .8;
+        margin-bottom: .6em;
+    }
+    .taskFormDialog [name="additional instruction"]{
+        font-size: .8em;
+        padding: .5em;
+        overflow: auto;
+    }
+    
+    
+    
+    .client-dashboard {
+        justify-content: center;
+        align-items: center;
+        gap: 50px;
+        font-size: .8em;
+    
+    }
+    
+    
+    .client-dashboard .summary {
+        --gap: 4em;
+        padding: var(--gap);
+        gap: calc(var(--gap) * 2);
+    }
+    
+    .client-dashboard .client-name {
+        text-transform: capitalize;
+    }
+    .client-dashboard .summary ul {
+        list-style-type: none;
+        padding: 0;
+        text-align: start;
+    }
+    
+    
+    .client-dashboard .summary > .col-1:after {
+        content: "";
+        position: absolute;
+        width: calc(var(--gap) * 2);
+        height: 100%;
+        border: none;
+        border-right: 1px solid #80808080;
+        right: 0;
+        translate: 50% 0%;
+    }
+    
+    .client-dashboard  .available-task-credit-count {
+        font-size: 10em;
+        font-weight: bold;
+       
+    }
+    .client-dashboard  .available-task-credit-count {
+        display: block;
+        text-align: center;
+    }
+    
+    /* summar col-2 */
+    .client-dashboard .summary > .col-2 {
+        align-self: stretch;
+        justify-content: space-between;
+    }
+    .client-dashboard .summary > .col-2 > .flex-row {
+        /* padding: 1em; */
+        gap: 2em;
+    }
+    
+    .client-dashboard .consent {
+        display: block;
+        font-size: .8em;
+        text-align: start;
+    }
+    
+    
+    /* task status  */
+    
+    .client-dashboard .task-status-container {
+        width: 100%;
+    }
+    
+    .task-status-container .task-list {
+        width: 100%;
+        color: #808080;
+        margin: 2em;
+        table-layout: fixed;
+        text-align: center;
+        border-collapse: collapse;
+        font-size: .9em;
+    
+        
+    }.task-status-container .task-list .task-edit-btn {
+        color: var(--blue);
+        text-align: center;
+        border:none;
+        background: transparent;
+    }
+    
+    .task-status-container .task-list .task-title {
+        text-align: start;
+        font-weight: 500;
+    }
+    
+    
+    .task-status-container .task-list .task-action {
+        text-align: end;
+    }
+    
+    .task-status-container .task-list tbody td {
+        border-block: solid 1px #8080804D;
+        padding: 1em;
+    }
+    
+    .task-status-container .add-order-btn {
+        margin-top: 10px;
+    }
+    
+    
+    
+    
+    /* admin dasboard */
+    .task-manager .admin-dashboard{
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        inset: 0;
+    
+    }.task-manager .admin-dashboard .topBar{
+        background-color: #fff;
+    }
+    .task-manager .admin-dashboard .topBar h2{
+        font-size: 1.2em;
+        padding: .5em; 
+        text-align: center;
+    }
+    .task-manager .admin-dashboard > .col{
+        background-color: #F7F7F7;
+        flex-basis: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .task-manager .admin-dashboard > .col1 {
+        flex-basis: 50%;
+    }
+    .task-manager .admin-dashboard .col-body{
+        overflow: visible;
+    }
+    .task-manager .admin-dashboard > .col:not(:first-child) .col-body{
+       flex: 1;
+    
+    }.task-manager .admin-dashboard > .col:not(:first-child):not(:last-child) .col-body:after {
+        content: "";
+        position: absolute;
+        right: 0;
+        height: calc(100% - 1em);
+        border-right: solid 2px #80808080;
+        margin: auto;
+        top: 50%;
+        translate: -50% -50%;
+    
+    }.task-manager .admin-dashboard .client-list{
+        background: #FFFFFF;
+        list-style-type: none;
+        width: fit-content;
+        min-width: 200px;
+        padding: 0;
+        box-shadow: 5px 6px 15px rgba(0, 0, 0, 0.25);
+    
+    }.task-manager .admin-dashboard .client-list li{
+        padding: 1em 2em;
+    
+    }.task-manager .admin-dashboard .client-list li:where(:hover, .active){
+        background-color: var(--blue);
+        color: #fff;
+    }
+    
+    
+    .task-manager .admin-dashboard .task-list{ 
+        list-style-type: none;
+        padding: 1em 2em;
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+        height: 100%;
+    }
+    .task-manager .admin-dashboard .task-item{ 
+        padding: 1em 2em;
+        background-color: #fff;
+        border-radius: 6px;
+        box-shadow: 2px 5px 10px #0002;
+    }
+    .task-manager .admin-dashboard .task-item > *{ 
+        pointer-events: none;
+        user-select: none;
+    }
+    .task-manager .admin-dashboard .task-item .task-meta{ 
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 1em;
+    }
+    .task-manager .admin-dashboard .task-item .done-by{ 
+        background-color: var(--blue);
+        border-radius: 50em;
+        font-size: .7em;
+        width: 0;
+        height: 0;
+        line-height: 1;
+        padding: .9em;
+        text-align: center;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        float: right;
+    }
+    .task-manager .admin-dashboard .task-item .task-date:before { 
+        content: attr(data-date-class);
+    
+    }
+    .task-manager .admin-dashboard .task-item .task-date { 
+        font-size: .6em;
+        color: grey;
+        display: none;
+        
+    }
+    .task-manager .admin-dashboard .task-item .task-date > span{ 
+        display: none;
+    }
+    
+    .task-manager .admin-dashboard .pending-container .done-by {
+        display: none;
+    }
+    
+    .task-manager .admin-dashboard .pending-container :is(.task-date:has(.date-received), .date-received) {
+        display: inline-block;
+    }
+    .task-manager .admin-dashboard .active-container :is(.task-date:has(.date-started), .date-started) {
+        display: inline-block;
+    }
+    .task-manager .admin-dashboard .completed-container :is(.task-date:has(.date-completed), .date-completed) {
+        display: inline-block;
+    }
+    
+    
+    /* drag */
+    .dragging-image {
+        --x: 0;
+        --y: 0;
+        position: fixed !important;
+        top: var(--y);
+        left: var(--x);
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        z-index: 999999;
+    
+    }
+    .dragging {
+        opacity: .5;
+    }
+    
+    
+    dialog.loader {
+        margin: 100px auto;
+    }
+    dialog.loader > div {
+        border-radius: 10px;
+        background-color: #fff;
+        padding: 1em;
+    }
+    </style>
+    
+    
+    <div class="task-manager">
+        <dialog class="loader">
+            <div>
+                <span class="loader-text">Loading...</span>
+            </div>
+        </dialog>
+    
+        <dialog class="login-dialog">
+            <form action="" id="login-form" method="">
+                <span class="form-title">Welcome!</span>
+                <div class="form-item flex-row center-center">
+                    <input type="text" name="user" required>
+                    <button class="login-submit-btn" type="submit">Login</button>
+                </div>
+            </form>
+        </dialog>
+    
+        <div class="admin-dashboard flex-row">
+            
+            <div class="col1 col">
+                <div class="topBar"><h2> </h2></div>
+                <div class="col-body">
+                    <ul class="client-list">
+                        <!-- <li class="client active" data-id="1">ZFG Living</li>     -->
+                    </ul>
+                </div>
+            </div>
+            <div class="col2 pending-container col" data-group="Pending">
+                <div class="topBar"><h2>Pending</h2></div>
+                <div class="col-body">
+                    <ul class="task-list drop-zone">
+         
+                    </ul>
+                </div>
+            </div>
+            <div class="col3 active-container col" data-group="Active">
+                <div class="topBar"><h2>Active</h2></div>
+                <div class="col-body">
+                    <ul class="task-list drop-zone">
+         
+                    </ul>
+                </div>
+            </div>
+            <div class="col4 completed-container col" data-group="Completed">
+                <div class="topBar"><h2>Completed</h2></div>
+                <div class="col-body">
+                    <ul class="task-list drop-zone">
+                     
+                    </ul>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+    
+    <script defer>
+        // db
+    // db
+    let appAPI = "https://script.google.com/macros/s/AKfycbw9LCCqfdF-P4IUdxxsi0tHu4C8nyuS7fhqq2eUkJ3y5ynn7gWq9D6v3zOxkY4foORn/exec"
+    let gsId = "1iwiJVuFW2exmR12H0a9uP4-Y4vlBNAbpDlfD3_CNVKk"
+    let readAll = `${appAPI}?action=readall&gsid=${gsId}`
+    
+    
+    const db_orderFormHeader =['TASK NAME',	'ADDITIONAL INSTRUCTION', 'STATUS',	'QUEUE', 'DATE RECEIVED', 'DATE STARTED', 'DATE COMPLETED']
+    
+    const clientName = $('.client-name')
+    const loginDialog = $('.login-dialog')
+    const loginForm = $('#login-form')
+    const taskTitle = $('.task-title')
+    const queuePosition = $('.queue-position-count')
+    const pendingCount = $('.pending-count')
+    const activeCount = $('.active-count')
+    const completedCount = $('.completed-count')
+    const availableTaskCredit = $('.available-task-credit-count')
+    const taskList = $('.task-list')
+    const taskOrderDialog = $('.taskOrder-dialog')
+    const orderForm = $('#taskOrder-form')
+    const taskUpdateDialog = $('.taskUpdate-dialog')
+    const updateForm = $('#taskUpdate-form')
+    const addOrderBtn = $('.add-order-btn')
+    const clientList = $('.admin-dashboard .client-list')
+    const client = $('.admin-dashboard .client-list .client')
+    let clientEmail;
+    let user
+    let pending = 0
+    let active = 0
+    let completed = 0
+    
+    
+    // get user
+    loginForm.on('submit', function(e){
+        e.preventDefault()
+        let userName = $(this).find('[name="user"]').val().toLowerCase()
+        if(userName == 'al' || userName == 'am'){
+            user = 'AM'
+            $(this).find('.form-title').text('Preparing dashboard...')
+            $(this).find('.form-item').addClass('hide')
+        
+            INIT_dash()
+        } else if(userName == 'ian' || userName == 'ir') {
+            user = "IR"
+            $(this).find('.form-title').text('Preparing dashboard...')
+            $(this).find('.form-item').addClass('hide')
+        
+            INIT_dash()
+        } else {
+            alert('not registered')
+        }
+    
+    
+        
+    })
+    
+    loginDialog[0].showModal()
+    
+    function INIT_dash(){
+        fetch( readAll,{method: 'GET'} )
+        .then((response) => response.json() )
+        .then((data) => {
+            console.log(data)
+            let clientCount = 0
+            Object.keys(data).forEach(key => {
+                if(key == 'RESPONSE TEMPLATE') return
+        
+                if (key == "ACCOUNT_DETAILS"){
+                 
+                    data[key].forEach((client, indx) => {
+                        let isActive = indx == 0 ? 'active' : ""
+                        clientList.append(`<li class="client ${isActive}" data-id="${client.ID}" data-client-email="${client.EMAIL}">${client.NAME}</li>`)                
+                    })
+        
+                } else {
+                    clientCount ++ 
+                    hide = clientCount > 1 ? 'hide' : ''
+                    data[key].forEach(task => {
+                        console.log(key)
+                        let clientIndex = data['ACCOUNT_DETAILS'].findIndex(client => client.EMAIL == key)
+                        let clientId = data['ACCOUNT_DETAILS'][clientIndex]['ID']
+                        let clientEmail = data['ACCOUNT_DETAILS'][clientIndex]['EMAIL']
+                        let status = task['STATUS'].toLowerCase()
+        
+                        let taskItemtemplate = ` <li class="task-item ${hide}" data-id="${task.ID}" data-client-email="${clientEmail}" data-client-id="${clientId}" data-status="${status}">
+                        <span class="task-title">${task['TASK NAME']}</span>
+                        <div class="task-meta flex-row">
+                            <p class="task-date">Received: <span class="date-received">${task['DATE RECEIVED']}</span></p>
+                            <p class="started task-date">Active: <span class="date-started">${task['DATE STARTED']}</span></p>
+                            <p class="task-date">Completed: <span class="date-completed">${task['DATE COMPLETED']}</span></p>
+                            <p class="done-by">${task['DONE BY']}</p>
+                        </div>
+                    </li>`
+        
+                        
+        
+                        $(`.${status}-container .task-list`).append(taskItemtemplate)
+                    })
+                }
+        
+        
+            })
+        
+            INIT_dnd() //apply drag and drop function
+    
+    
+            loginDialog[0].close()
+        
+        })
+        .catch(e => {
+            console.log(e)
+        })
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    // other functions
+    
+    
+    
+    function checkEmail(email, data){
+        let valid = false
+        data.ACCOUNT_DETAILS.map((item )=> {
+            if (email == item.EMAIL){
+                availableTaskCredit.text(item['MAX REQUEST'] - data[clientEmail].length)
+                clientName.text(item['NAME'])
+                valid = true
+                return
+            }
+            
+        })
+        return valid
+    }
+    
+    
+    
+    $('.dialog-close-btn').on('click', function(){
+        $(this).closest('dialog')[0].close();
+    })
+    
+    
+    $('.admin-dashboard').on('click', '.client', function(){
+        $('.client').removeClass('active')
+        $(this).addClass('active')
+        let clientId = $(this).attr('data-id')
+        $('.task-item').addClass('hide')
+        $(`[data-client-id=${clientId}]`).removeClass('hide')
+    
+    })
+    
+    
+    
+    
+    // drag and drop
+    
+    function INIT_dnd(){
+        const draggables = document.querySelectorAll('.task-manager .admin-dashboard .task-item')
+        let fromContainer
+        let targetContainer
+        let draggingItem
+            
+        draggables.forEach(draggable => {
+            drag(draggable)	
+        })
+        
+        function getDropZone(ev) {		
+                    const x = ev.x
+                    const y = ev.y
+                    const drop_target = document.elementFromPoint(x, y)
+        
+                    if(drop_target.closest('.drop-zone')){
+                        targetContainer = drop_target?.closest('.drop-zone')
+                    }
+        
+                    document.querySelector('.target-zone')?.classList.remove('target-zone')
+                    targetContainer?.classList.add('target-zone')
+               
+                    targetContainer?.appendChild(draggingItem)
+                    
+                                    
+        }
+        
+        function positionDragItem(dragItem,targetZone){
+            targetZone.appendChild(dragItem);
+        }
+        
+        function positionImage(ev){
+            const x = ev.x
+            const y = ev.y
+            const visual_image = document.querySelector('.dragging-image')
+        
+            visual_image.style.setProperty('--x', `${x}px`)
+            visual_image.style.setProperty('--y', `${y}px`)
+            
+        }
+        
+        function makeVisualImage(ev){
+            let clone = ev.target.cloneNode(true)
+            clone.classList.add('dragging-image')
+            ev.target.closest('.drop-zone').appendChild(clone)
+        }
+        
+        function drag(el){
+            
+            el.addEventListener('pointerdown', (ev)=>{
+                ev.preventDefault()
+                // console.log(ev.target.find)
+                // console.log(ev)
+    
+                let itemBelongsTo = ev.target.querySelector('.done-by').textContent
+                console.log(itemBelongsTo)
+                if(!itemBelongsTo == "") {
+                    console.log('triggered')
+                    if(user != itemBelongsTo) return
+                }
+                
+    
+    
+                if( ev.button != 0 ) return;
+                
+                ev.target.setPointerCapture(ev.pointerId)
+                makeVisualImage(ev)
+                positionImage(ev)
+        
+        
+            // start dragging
+                draggingItem = ev.target
+                draggingItem.classList.add('dragging')
+                fromContainer = ev.target.closest('.drop-zone')
+                            
+                document.addEventListener('pointermove', getDropZone)
+                document.addEventListener('pointermove', positionImage)
+        
+            // drop dragged element
+                 document.addEventListener('pointerup', (ev2)=>{
+                    document.querySelector('.dragging-image').remove()
+                    document.removeEventListener('pointermove', getDropZone)
+                    document.removeEventListener('pointermove', positionImage)
+    
+                    // update taskItem values
+                    let groupName = ev.target.closest('.col').dataset.group
+                    let dateNow = new Date().toLocaleDateString();
+    
+    
+                    if(groupName == "               Pending"){
+                        document.querySelector('.dragging').querySelector('.done-by').textContent = ""
+                    } else {
+                
+                        document.querySelector('.dragging').querySelector('.done-by').textContent = user
+                        document.querySelector('.dragging').dataset.status = groupName
+    
+                        groupName == "Active" ? document.querySelector('.dragging').querySelector('.date-started').textContent = dateNow : document.querySelector('.dragging').querySelector('.date-completed').textContent = dateNow
+                    }
+    
+    
+                    // update api db
+                    if(fromContainer != targetContainer){
+                    updateTask($('.dragging'))
+                    }
+    
+    
+                    
+                    document.querySelector('.dragging')?.classList.remove('dragging')
+                    document.querySelector('.target-zone')?.classList.remove('target-zone')  
+    
+                }, {once: true})
+            })
+        
+        }
+    
+    } //end of drag n drop func
+    
+    
+    function updateTask(taskItem){
+        Loader('Saving... please wait...').Open()
+    
+        let status = taskItem.closest('[data-group]').attr('data-group')
+    
+        let dataToSubmit = JSON.stringify({
+            'TASK NAME': taskItem.find('.task-title').text(),
+            'STATUS': status,
+            'DATE STARTED': taskItem.find('.date-started').text(),
+            'DATE COMPLETED': taskItem.find('.date-completed').text(),
+            'DONE BY': taskItem.find('.done-by').text()
+        })
+    
+    
+        let query = `${appAPI}?gsid=${gsId}&action=update&table=${taskItem.attr('data-client-email')}&data=${dataToSubmit}&id=${taskItem.attr('data-id')}`
+    
+        fetch(query, {method: 'GET'})
+        .then((res) => res.json())
+        .then((resData) => {
+            console.log(resData)
+            Loader().Close()
+        
+        })
+        .catch(e => {
+            console.log(e)
+            
+        }) //end of fetch
+    }
+    
+    function Loader(text){
+        let loaderEL = $('.loader')
+        if(text){
+            loaderEL.find('.loader-text').text(text)
+        }
+    
+        return ({
+            Open: ()=>{
+                loaderEL[0].showModal()
+            },
+            Close: ()=> {
+                loaderEL[0].close()
+            }
+        })
+    
+    }
+    </script>

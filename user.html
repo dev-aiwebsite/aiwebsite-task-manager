@@ -1,0 +1,1027 @@
+<style>
+    * {
+    box-sizing: border-box;
+    position: relative;
+    /* margin: 0; */
+    /* line-height: 1.2; */
+    /* outline: solid 2px #8af7bb73; */
+}
+dialog{
+    display: none;
+    outline: none;
+    border: none;
+}
+
+dialog[open]{
+    display: block;
+}
+
+body {
+    background-image: url('https://lh3.googleusercontent.com/xfVR5xGh6EC4PJpF_jSdmlQMfFNxKAr3bgU4_MHw2AYjGzFETVGUQB2UVlSxgijjjfEblDl1U-dTKpsvq1umJGwWU6XpvL8=s1600');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    margin: 0;
+    overflow: hidden;
+}
+
+@media(max-width: 767px){
+    .task-manager {
+        display: block !important;
+    }
+    .task-manager .login-dialog {
+        width: auto !important;
+    }
+    .df-btn {
+        visibility: hidden !important;
+    }.client-dashboard .summary {
+        flex-direction: column !important;
+    }
+    
+    .client-dashboard .summary > .col-1:after {
+        width: min(60vw, 500px) !important;
+        border-right: none !important;
+        border-bottom: solid 1px #80808080 !important;
+        left: 50% !important;
+        translate: -50% var(--gap) !important;
+    }
+    
+    
+}
+
+@media(min-width: 768px){
+    tr:has(.add-order-btn ) {
+        display: none;
+    }
+}
+
+/*standout*/
+div#element-22621b52bf15074 {
+    background: transparent !important;
+}
+
+div#element-03d203c01396718 {
+    display:none !important;
+}
+div#vbid-5552aa4e-w1xotg0n {
+    display: none !important;
+}
+
+/*standout end*/
+p.info-text {
+    font-size: .7em;
+    color: red;
+    padding: 1em 0;
+}
+.task-manager > .col1 {
+    /* max-width: 60%;
+    width: 100%; */
+    padding: min(4em, 5vw);
+    background-color: #fff;
+    overflow-y: auto;
+    height: 100vh;
+}
+.task-manager .col2 {
+    /* max-width: 40%; */
+    /* width: 100%; */
+    padding: 0 min(4em, 5vw);
+    display: flex;
+    align-items: center;
+}
+.task-manager :where(input[type="radio"], label) {
+    cursor: pointer;
+}
+:where(.task-manager) :where(h1,h2,h3,h4,h5) {
+    margin: 0;
+}
+.task-manager  .link {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    text-transform: capitalize;
+    color: var(--blue);
+    text-decoration: underline;
+    padding: 0;
+    align-self: end;
+    line-height: 1.7;
+}
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+.border-round {
+    border-radius: 1.4em;
+    border: solid 1px #80808080;
+}
+
+.center-center {
+    justify-content: center;
+    align-items: center;
+}
+
+.disabled {
+    pointer-events: none;
+    filter: grayscale(1) contrast(.1);
+    user-select: none;
+}
+
+:root {
+    --blue-primary: #2E2EFF;
+    --blue: #11BBE1;
+    --grey-light: #80808080;
+}
+
+.task-manager {
+    font-size: clamp(14px, calc(3vw - 1.9em), 20px);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    /* max-width: 1400px; */
+    margin: auto;
+    display: grid;
+    grid-template-columns: 60% 40%;
+}
+
+.task-manager .btn {
+    text-decoration: none;
+    padding: .6em 1em;
+}
+
+.task-manager .upload-file-btn {
+    border-radius: 12px;
+    background-color: var(--blue);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #fff;
+    font-weight: 500;
+    
+}
+
+.task-manager button.loading {
+    pointer-events: none;
+    user-select: none;
+    opacity: .5;
+}
+.task-manager button.loading:after {
+    content: "";
+    position: absolute;
+    aspect-ratio: 1;
+    width: 1em;
+    height: auto;
+    background: var(--blue-primary);
+    border: solid 2px #fff;
+    border-radius: 50em;
+    border-right: transparent;
+    border-top: transparent;
+    top: 50%;
+    translate: -50% -50%;
+    animation: loading 1s linear infinite;
+}
+
+
+.task-manager button.loading:before {
+    content: "Submitting...";
+    position: absolute;
+    width: -webkit-fill-available;
+    background: var(--blue-primary);
+    text-align: start;
+}
+
+
+@keyframes loading {
+    to {rotate: 360deg}
+}
+
+
+.task-manager dialog {
+    border: none;
+    background-color: transparent;
+}
+.task-manager .dialog-close-btn:hover {
+    color: red;
+}
+
+.task-manager .dialog-close-btn {
+    border: none;
+    position: absolute;
+    z-index: 9;
+    font-size: 1.2em;
+    border-radius: 50em;
+    right: 0px;
+    top: 0;
+    line-height: 1;
+    cursor: pointer;
+    translate: 100% -100%;
+    
+}
+
+.task-manager button {
+    cursor: pointer;
+}
+.task-manager dialog::backdrop {
+    background-color: #0005;
+    backdrop-filter: blur(2px);
+}
+.task-manager .btn-primary {
+    background-color: var(--blue-primary);
+    border: none;
+    color: #fff;
+    padding: .8em 1.5em;
+    border-radius: .25em;
+    cursor: pointer;
+}
+
+.task-manager .btn-secondary {
+    background-color: #fff;
+    color: var(--blue);
+    border-color: currentColor;
+    border: solid 1px;
+    padding: .8em 1.5em;
+    border-radius: .25em;
+    cursor: pointer;
+}
+
+
+.task-manager .login-dialog {
+    margin: auto;
+}
+.task-manager #login-form {
+    background-color: #fff;
+    padding: 2em;
+    border-radius: 1em;
+    box-shadow: 0 0 1em #0002;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.task-manager #login-form input {
+    border: solid 1px #f0f0f0;
+    background-color: #f5f5f5;
+    padding: .8em 1.5em;
+    border-radius: .25em;
+}
+.task-manager #login-form .login-submit-btn {
+    background-color: var(--blue-primary);
+    color: #fff;
+    border: none;
+    border-radius: .25em;
+    border-radius: 0;
+    padding: .8em 1.5em;
+    width: 100%;
+    cursor: pointer;
+    margin-left: 10px;
+    font-weight: bold;
+    width: fit-content;
+}
+.task-manager #login-form .login-email-input { 
+    border-radius: 10em 0 0 10em;
+
+}
+
+
+.task-manager .taskFormDialog {
+    background: #FFFFFF;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    border-radius: 1em;
+    padding: 2em;
+    overflow: visible;
+    text-align: center;
+    inset: 0;
+
+}
+.task-manager .taskFormDialog form *:not(button) {
+text-align: start;
+}
+.taskFormDialog .form-item {
+    margin-bottom: 1em;
+}
+
+.taskFormDialog .form-title {
+    color: var(--blue);
+    font-size: 1.4em;
+    display: block;
+    margin-bottom: 1em;
+
+    
+}
+.taskFormDialog :where(input, select) {
+    border: none;
+    border-bottom: solid 1px var(--grey-light);
+    font-size: 1.2em;
+    outline: none;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+}
+
+.taskFormDialog option {
+    font-size: 14px;
+}
+
+.taskFormDialog .form-item-title {
+    font-size: .7em;
+    color: var(--blue);
+    opacity: .8;
+    margin-bottom: .6em;
+}
+.taskFormDialog [name="additional instruction"]{
+    font-size: .8em;
+    padding: .5em;
+    overflow: auto;
+}
+
+
+
+.client-dashboard {
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    font-size: .8em;
+    grid-gap: 50px;
+
+}
+
+
+.client-dashboard .summary {
+    --gap: 4em;
+    padding: var(--gap);
+    gap: calc(var(--gap) * 2);
+}
+
+.client-dashboard .client-name-wrapper {
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+.client-dashboard .client-name {
+    text-transform: capitalize;
+}
+.client-dashboard .summary ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: start;
+}
+
+
+.client-dashboard .summary > .col-1:after {
+    content: "";
+    position: absolute;
+    width: calc(var(--gap) * 2);
+    height: 100%;
+    border: none;
+    border-right: 1px solid #80808080;
+    right: 0;
+    translate: 50% 0%;
+}
+
+.client-dashboard  .available-task-credit-count {
+    font-size: 10em;
+    font-weight: bold;
+   
+}
+.client-dashboard  .available-task-credit-count {
+    display: block;
+    text-align: center;
+}
+
+/* summar col-2 */
+.client-dashboard .summary > .col-2 {
+    align-self: stretch;
+    justify-content: space-between;
+}
+.client-dashboard .summary > .col-2 > .flex-row {
+    /* padding: 1em; */
+    gap: 2em;
+}
+
+.client-dashboard .consent {
+    display: block;
+    font-size: .8em;
+    text-align: start;
+}
+
+
+/* task status  */
+
+.client-dashboard .task-status-container {
+    width: 100%;
+}
+
+.task-status-container .task-list {
+    width: 100%;
+    color: #808080;
+    margin: 2em;
+    table-layout: fixed;
+    text-align: center;
+    border-collapse: collapse;
+    font-size: .9em;
+
+    
+}.task-status-container .task-list .task-edit-btn {
+    color: var(--blue);
+    text-align: center;
+    border:none;
+    background: transparent;
+}
+
+.task-status-container .task-list .task-title {
+    text-align: start;
+    font-weight: 500;
+}
+
+
+.task-status-container .task-list .task-action {
+    text-align: end;
+}
+
+.task-status-container .task-list tbody td {
+    border-block: solid 1px #8080804D;
+    padding: 1em;
+}
+
+.task-status-container .add-order-btn {
+    margin-top: 10px;
+}
+
+
+dialog.loader {
+    margin: 100px auto;
+}
+dialog.loader > div {
+    border-radius: 10px;
+    background-color: #fff;
+    padding: 1em;
+}
+
+.task-manager:has(.disabled) .logout-btn {
+    display: none;
+}
+</style>
+
+<div class="task-manager">
+    <dialog class="loader">
+        <div>
+            <span class="loader-text">Loading...</span>
+        </div>
+    </dialog>
+
+    <dialog class="taskUpdate-dialog taskFormDialog">
+        <button class="dialog-close-btn">×</button>
+        <form action="" class="taskUpdate-form" id="taskUpdate-form">
+            <span class="form-title">Update Task Details</span>
+            <div class="form-item flex-col">
+            </div>
+            <div class="form-item flex-col">
+                <span class="form-item-title">Task Name</span>
+                <input type="text" name="update-name" required>
+            </div>
+                   
+            <div class="form-item flex-col">
+                <span class="form-item-title">Task Category</span>
+                <select name="update-category" id="" required>
+                    <option value="Blog upload">Blog upload</option>
+                    <option value="Create new page">Create new page</option>
+                    <option value="Edit page">Edit existing page</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="form-item flex-col">
+                <span class="form-item-title">Queue Position</span>
+                <select name="queue-position" id="" required>
+                </select>
+            </div>
+            <div class="form-item flex-col">
+                <span class="form-item-title">Have you uploaded relevant materials to your Google drive?</span>
+               <label for="update-file-uploaded-yes"><input type="radio" name="update-include-files" id="update-file-uploaded-yes" value="yes"> Yes</label>
+               <label for="update-file-uploaded-na"><input type="radio" name="update-include-files" id="update-file-uploaded-na" value="na"> N/A</label>
+            </div>
+            <div class="form-item flex-col">
+                <span class="form-item-title">Additional Instruction</span>
+                <textarea name="update-additional-instruction" id="" cols="30" rows="10"></textarea>
+            </div>
+            <button class="taskUpdate-submit-btn btn-primary" type="submit">Submit Request</button>
+        </form>
+    </dialog> 
+   <div class="col1">
+    <dialog class="login-dialog" open>
+        <form action="" id="login-form" method="dialog">
+            <span class="form-title">Enter your registered email address or unique code to check your remaining credits </span>
+            <div class="form-item flex-row center-center">
+                <input class="login-email-input" type="text" placeholder="Enter email address or unique code here..." required>
+                <button class="login-submit-btn" type="submit">Check Credits</button>
+            </div>
+        </form>
+    </dialog>
+       <div class="client-dashboard flex-col disabled">
+        <div class="flex-row client-name-wrapper">
+            <div style="display: grid;grid-auto-flow:column;grid-gap:10px;"><h1 class="client-name">-----------</h1><button class="link logout-btn">logout</button></div>
+            <a class="upload-file-btn btn" href="#" class="btn" target="_blank">
+                <svg width="1.6em" height="1.6em" viewBox="0 0 39 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.55 26H21.45V17.6L24.57 20.8L27.3 18L19.5 10L11.7 18L14.43 20.8L17.55 17.6V26ZM3.9 32C2.8275 32 1.9097 31.6087 1.1466 30.826C0.3822 30.042 0 29.1 0 28V4C0 2.9 0.3822 1.95867 1.1466 1.176C1.9097 0.392 2.8275 0 3.9 0H15.6L19.5 4H35.1C36.1725 4 37.091 4.392 37.8554 5.176C38.6185 5.95867 39 6.9 39 8V28C39 29.1 38.6185 30.042 37.8554 30.826C37.091 31.6087 36.1725 32 35.1 32H3.9ZM3.9 4V28H35.1V8H17.8913L13.9913 4H3.9Z" fill="currentColor"/>
+                </svg>
+               <span>Upload Files Here</span>
+            </a>
+        </div>
+  
+          <div class="summary flex-row center-center border-round">
+              <div class="col-1 flex-col center-center">
+                  <span class="available-task-credit-count">--</span>
+                  <span class="available-task-credit-text" >Available Task Credit</span>
+              </div>
+  
+              <div class="col-2 flex-col">
+                  <div class="flex-row">
+  
+                      <div class="col-1">
+                          <h3>Credit Allocation</h3>
+                          <ul>
+                              <li>Blog Upload: <span class="count blog-upload-count">--</span></li>
+                              <li>New Page: <span class="count new-page-count">--</span></li>
+                              <li>Page Update: <span class="count page-update-count">--</span></li>
+                              <li>Other: <span class="count other-count">--</span></li>
+                          </ul>
+                      </div>
+  
+                      <div class="col-2">
+                          <h3>Request</h3>
+                          <ul>
+                              <li>
+                                <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="12" r="11" fill="#FF0000" stroke="#F7F7F7" stroke-width="2"/>
+                                    </svg>
+                                    Active Request: <span class="active-count">--</span>
+                                </li>
+                              <li>
+                                <svg width="1em" height="1em" viewBox="0 0 26 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.09202 20L0 10.5198L2.27301 8.14969L9.09202 15.2599L23.727 0L26 2.37006L17.546 11.185L9.09202 20Z" fill="#006400"/>
+                                    </svg>
+                                    Completed: <span class="completed-count">--</span>
+                                </li>
+                              <li>
+                                <svg width="1em" height="1em" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10 18C14.4 18 18 14.4 18 10C18 5.6 14.4 2 10 2C5.6 2 2 5.6 2 10C2 14.4 5.6 18 10 18ZM10 0C15.5 0 20 4.5 20 10C20 15.5 15.5 20 10 20C4.5 20 0 15.5 0 10C0 4.5 4.5 0 10 0ZM10.5 5V11H5V9.5H9V5H10.5Z" fill="#562DFB"/>
+                                </svg> Pending: <span class="pending-count">--</span>
+                            </li>
+                          </ul>
+                      </div>
+  
+                  </div>
+                  <div >
+                      <span class="consent">*Request are completed within 24 hours.</span>
+                      <span class="consent">*We can only work on one active request at a time.</span>
+                  </div>
+  
+              </div>
+          </div>
+  
+          <div class="task-status-container flex-col center-center">
+              <h4>Task Queue: Pending(<b class="pending-count">--</b>)</h4>
+  
+              <table class="task-list">
+                  <tbody>
+                      <tr>
+                          <td class="task-title">----------</td>
+                          <td class="queue-position">Queue Position: <span class="queue-position-count">--</span></td>
+                          <td class="task-action"><button type="button" class="task-edit-btn">----------</button></td>
+                      </tr>
+                      <tr>
+                          <td class="task-title">----------</td>
+                          <td class="queue-position">Queue Position: <span class="queue-position-count">--</span></td>
+                          <td class="task-action"><button type="button" class="task-edit-btn">----------</button></td>
+                      </tr>
+                      <tr>
+                          <td class="task-title">----------</td>
+                          <td class="queue-position">Queue Position: <span class="queue-position-count">--</span></td>
+                          <td class="task-action"><button type="button" class="task-edit-btn">----------</button></td>
+                      </tr>
+                  </tbody>
+                  <tfoot>
+                     <tr>
+                          <td></td>
+                          <td></td>
+                          <td class="task-action"><button type="button" class="add-order-btn btn-primary">Add Task</button></td>
+                      </tr>
+                  </tfoot>
+              </table>
+  
+  
+  
+  
+          </div>
+  
+      </div>
+   </div>
+    <div class="col2">
+        <dialog class="taskOrder-dialog taskFormDialog" open>
+            <!-- <button class="dialog-close-btn">×</button> -->
+            <form action="" class="taskOrder-form disabled" id="taskOrder-form">
+                <span class="form-title">Task Order Details</span>
+                <div class="form-item flex-col">
+                </div>
+                <div class="form-item flex-col">
+                    <span class="form-item-title">Task Name</span>
+                    <input type="text" name="order-name" required>
+                </div>
+                <div class="form-item flex-col">
+                    <span class="form-item-title">Task Category</span>
+                    <select name="order-category" id="" required>
+                        <option value="Blog upload">Blog upload</option>
+                        <option value="Create new page">Create new page</option>
+                        <option value="Edit page">Edit existing page</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-item flex-col">
+                    <span class="form-item-title">Queue Position</span>
+                    <select name="queue-position" id="" required>
+                    </select>
+                </div>
+                <div class="form-item flex-col">
+                    <span class="form-item-title">Have you uploaded relevant materials to your Google drive?</span>
+                   <label for="order-file-uploaded-yes"><input type="radio" name="order-include-files" id="order-file-uploaded-yes" value="yes"> Yes</label>
+                   <label for="order-file-uploaded-na"><input type="radio" name="order-include-files" id="order-file-uploaded-na" value="na"> N/A</label>
+                </div>
+                <div class="form-item flex-col">
+                    <span class="form-item-title">Additional Instruction</span>
+                    <textarea name="order-additional-instruction" id="" cols="30" rows="10"></textarea>
+                </div>
+                <button class="taskOrder-submit-btn btn-primary" type="submit">Submit Request</button>
+            </form>
+        </dialog>
+    </div>
+</div>
+<!-- Include the dialog-polyfill library -->
+<script src="https://cdn.jsdelivr.net/npm/dialog-polyfill@0.5.0/dist/dialog-polyfill.min.js"></script>
+
+<!-- Initialize the polyfill for all dialog elements -->
+<script>
+$(document).ready(function(){
+     if (typeof dialogPolyfill !== 'undefined') {
+    $('dialog').each((indx, dialog)=>{
+        dialogPolyfill.registerDialog(dialog);
+    })
+         
+    
+    
+  }
+    // db
+    let appAPI = "https://script.google.com/macros/s/AKfycbwdmso2vEO9SxIMAaVc5QX9JKWlOvzJOApngGsIkEA7ohX_G7MbWBXeFsIgock7lDah2A/exec"
+    let gsId = "1iwiJVuFW2exmR12H0a9uP4-Y4vlBNAbpDlfD3_CNVKk"
+    let readAll = `${appAPI}?action=readall&gsid=${gsId}`
+    
+    
+    const db_orderFormHeader =['TASK NAME',	'ADDITIONAL INSTRUCTION', 'STATUS',	'QUEUE', 'DATE RECEIVED', 'DATE STARTED', 'DATE COMPLETED']
+    
+    const clientName = $('.client-name')
+    const loginDialog = $('.login-dialog')
+    const loginForm = $('#login-form')
+    const taskTitle = $('.task-title')
+    const queuePosition = $('.queue-position-count')
+    const pendingCount = $('.pending-count')
+    const activeCount = $('.active-count')
+    const completedCount = $('.completed-count')
+    const availableTaskCredit = $('.available-task-credit-count')
+    const taskList = $('.task-list tbody')
+    const taskOrderDialog = $('.taskOrder-dialog')
+    const orderForm = $('#taskOrder-form')
+    const taskUpdateDialog = $('.taskUpdate-dialog')
+    const updateForm = $('#taskUpdate-form')
+    const addOrderBtn = $('.add-order-btn')
+    let availableTaskCreditCount = 0
+    let taskDB
+    let maxRequest = 0
+    let clientEmail;
+    let pending = 0;
+    let active = 0;
+    let completed = 0;
+    let taskCategoryObj = {}
+    let taskThisMonthCount = 0
+    let signUpDate
+    
+    
+    // taskOrderDialog[0].showModal()
+    Loader('Loading Data...').Open()
+    fetch( readAll,{method: 'GET'} )
+    .then((response) => response.json() )
+    .then((data) => {
+        Loader('Loading Data...').Close()
+    
+        loginForm.on('submit', function(e){
+            e.preventDefault()
+            let userLogin = $(this).find('.login-email-input').val()       
+    
+            if (checkEmail(userLogin,data)){  
+    
+                INIT_dash(data,clientEmail)
+                loginDialog[0].close()
+        
+                } else {
+                    alert('Incorrect email or unique code')
+                }
+        })
+    
+       
+        if(localStorage.getItem('client')){
+            clientEmail = localStorage.getItem('client')
+       
+            if (checkEmail(clientEmail,data)){      
+            INIT_dash(data,clientEmail)
+            loginDialog[0].close()
+    
+            } else {
+                console.log('no data available')
+            }
+    
+        } else {
+            $('.login-dialog').prop('open', true)
+        }
+    
+    
+        mainDB = data[clientEmail]
+        
+        // edit task
+    
+        $('.task-manager').on('click', '.task-edit-btn', function(){
+            let taskId = $(this).closest('tr').attr('data-id')
+            let taskIndex = taskDB.findIndex(task => task.ID == taskId)
+            let taskData = taskDB[taskIndex]
+            let materials = taskData['MATERIALS']
+            
+            // $(this).find('[name="include-files"]:checked').val()
+    
+            updateForm.find('[name=update-name]').val(taskData['TASK NAME'])
+            updateForm.find('[name=update-category]').val(taskData['CATEGORY'])
+            updateForm.find('[name=update-additional-instruction]').val(taskData['ADDITIONAL INSTRUCTION'])
+            updateForm.find('[name=queue-position]').val(taskData['QUEUE'])
+            updateForm.find(`#update-file-uploaded-${materials}`).prop('checked', true)
+    
+            updateForm.attr('data-id', taskId)
+            taskUpdateDialog[0].showModal()
+    
+        })
+    
+    
+        
+    addOrderBtn.on('click', function(){
+        
+            if(taskOrderDialog[0].open){
+                
+                taskOrderDialog[0].close();
+                taskOrderDialog[0].showModal(); 
+                
+            } else {
+                taskOrderDialog[0].showModal();    
+            }
+    })
+    
+    
+    orderForm.on('submit', function(e){
+        e.preventDefault();
+    
+        let userIndex = data['ACCOUNT_DETAILS'].findIndex(user => user.EMAIL == clientEmail)
+    
+        if(availableTaskCreditCount > 0 ){
+    
+            $(this).find('[type=submit]').addClass('loading')
+            const taskName = $(this).find('[name=order-name]').val()
+            const taskCategory = $(this).find('[name=order-category]').val()
+            const additionalInstruction = $(this).find('[name=order-additional-instruction]').val()
+            const queuePos = $(this).find('[name=queue-position]').val()
+            const materials = $(this).find('[name="order-include-files"]:checked').val()
+    
+            let theData = JSON.stringify({
+                'TASK NAME': taskName,
+                'ADDITIONAL INSTRUCTION': additionalInstruction,
+                'CATEGORY': taskCategory,
+                'QUEUE': queuePos,
+                'MATERIALS': materials
+            
+            })
+    
+            let query = `${appAPI}?gsid=${gsId}&action=insert&table=${clientEmail}&data=${theData}`
+    
+            fetch( query,{method: 'GET'} )
+            .then((response) => response.json() )
+            .then((d) => {
+                $(this).find('[type=submit]').removeClass('loading')
+                console.log(d)
+    
+                if(d.success){
+                    orderForm[0].reset()
+                    
+                    if (window.innerWidth <= 600) {
+                        taskOrderDialog[0].close()
+                    }
+                    
+                    INIT_dash(d,clientEmail)
+            
+                }
+    
+    
+            })
+            .catch(e => {
+                console.log(e)
+            })
+    
+        } else {
+            alert('You have exhausted your Task credits')
+        }
+    
+    }) // orderForm end
+    
+    
+    updateForm.on('submit', function(e){
+        e.preventDefault();
+        $(this).find('[type=submit]').addClass('loading')
+        const taskID = $(this).attr('data-id')
+        const taskName = $(this).find('[name=update-name]').val()
+        const taskCategory = $(this).find('[name=update-category]').val()
+        const additionalInstruction = $(this).find('[name=update-additional-instruction]').val()
+        const queuePos = $(this).find('[name=queue-position]').val()
+        const materials = $(this).find('[name="include-files"]:checked').val()
+    
+        let theData = JSON.stringify({
+            'TASK NAME': taskName,
+            'ADDITIONAL INSTRUCTION': additionalInstruction,
+            'CATEGORY': taskCategory,
+            'QUEUE': queuePos,
+            'MATERIALS': materials
+        
+        })
+    
+        
+        let query = `${appAPI}?gsid=${gsId}&action=update&table=${clientEmail}&data=${theData}&id=${taskID}`
+    
+        fetch( query,{method: 'GET'} )
+        .then((response) => response.json() )
+        .then((d) => {
+            $(this).find('[type=submit]').removeClass('loading')
+            console.log(d)
+    
+            if(d.success){
+                     INIT_dash(d,clientEmail)
+    
+    
+                updateForm[0].reset()
+                taskUpdateDialog[0].close()
+            }
+    
+    
+        })
+        .catch(e => {
+            console.log(e)
+        })
+    
+    }) // updateForm end
+    
+    
+    })
+    .catch(e => {
+        console.log(e)
+    })
+    
+    
+    // other functions
+    
+    
+    
+    function checkEmail(userLogin, data){
+        let valid = false
+        data.ACCOUNT_DETAILS.map((item )=> {
+            if (userLogin == item.EMAIL || userLogin == item.NAME || userLogin == item.CODE ){
+                clientEmail = item.EMAIL
+                localStorage.setItem('client', clientEmail) 
+                maxRequest = item['MAX REQUEST']
+                clientName.text(item['NAME'])
+                $('.upload-file-btn').prop('href', item['FOLDER'])
+                signUpDate = item.DATE
+                valid = true
+                return
+            }
+            
+        })
+        return valid
+    }
+    
+    
+    $('.dialog-close-btn').on('click', function(){
+        $(this).closest('dialog')[0].close();
+    })
+    
+    
+    
+    function INIT_dash(data,emailAdd){
+        let taskList = $('.task-list tbody')
+        const queueList = $('[name=queue-position]')
+        let pending = 0, completed = 0, active = 0
+    
+        // reset necessary elements
+        taskList.html("")
+        queueList.html('')
+        $('.count').text("--")
+        $('form')[0].reset()
+    
+        let dataToProcess = data[emailAdd]
+        if(data.success){
+            dataToProcess = data.db
+        }
+    
+        taskDB = dataToProcess
+        console.log(taskDB)
+        dataToProcess.forEach((item )=> {
+        // availableTaskCredit.text(maxRequest - data[clientEmail].length)
+
+            if(item.STATUS == 'Pending'){
+                const taskItemTemplate = `<tr data-id="${item.ID}">
+                    <td class="task-title">${item['TASK NAME']}</td>
+                    <td class="queue-position">Queue Position: <span class="queue-position-count">${item['QUEUE']}</span></td>
+                    <td class="task-action"><button type="button" class="task-edit-btn">Edit</button></td>
+                    </tr>`
+                    taskList.append(taskItemTemplate)
+                           
+                    
+                    queueList.append(`<option value="${pending + 1}">${pending + 1}</option>`)
+                    pending ++
+    
+            } else if (item.STATUS == 'Completed'){
+                completed ++
+    
+            } else if (item.STATUS == 'Active'){
+                active ++
+            }
+    
+              if( ForThisMonth(signUpDate, item['DATE RECEIVED']) ){
+ 
+                    taskCategoryObj[item['CATEGORY']] ? taskCategoryObj[item['CATEGORY']] ++ : taskCategoryObj[item['CATEGORY']] = 1
+      
+                taskThisMonthCount ++
+            }
+    
+    
+    
+        })   
+        
+        // update counts
+        availableTaskCreditCount = maxRequest - taskThisMonthCount
+        pendingCount.text(pending)
+        activeCount.text(active)
+        completedCount.text(completed)
+        availableTaskCredit.text(maxRequest - taskThisMonthCount)
+        $('.blog-upload-count').text(taskCategoryObj["Blog upload"])
+        $('.new-page-count').text(taskCategoryObj["Create new page"])
+        $('.page-update-count').text(taskCategoryObj["Edit existing page"])
+        $('.other-count').text(taskCategoryObj["Other"])
+                       
+        // select last queue num in form
+        $('#taskOrder-form [name=queue-position]').append(`<option value="${pending + 1}" selected>${pending + 1}</option>`)
+    
+        $('.client-dashboard').removeClass('disabled')
+        orderForm.removeClass('disabled')
+    }
+    
+    
+    function Loader(text){
+        let loaderEL = $('.loader')
+        if(text){
+            loaderEL.find('.loader-text').text(text)
+        }
+    
+        return ({
+            Open: ()=>{
+                loaderEL[0].showModal()
+            },
+            Close: ()=> {
+                loaderEL[0].close()
+            }
+        })
+    }
+    
+    
+    function ForThisMonth(dateSignUp,date){
+        let currentDate = new Date();
+       let dateStarted = new Date(dateSignUp)
+       let dayStarted = dateStarted.getDate()
+       let monthToCheck = currentDate.getMonth()
+
+       if (dayStarted > currentDate.getDate ){
+            monthToCheck = currentDate.getMonth() - 1
+       }
+       let coveredMonth = new Date(currentDate.getFullYear(), monthToCheck, dayStarted)
+       let dateToCheck = new Date(date)
+       if(dateToCheck > coveredMonth) return true
+    }
+    
+
+    $('.logout-btn').on('click', ()=> {
+        localStorage.removeItem('client')
+        window.location.reload()
+    })
+})
+
+console.log('v1.3')
+</script>

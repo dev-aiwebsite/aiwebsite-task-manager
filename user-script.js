@@ -274,7 +274,7 @@ console.log('working')
                 localStorage.setItem('awt-username', userLogin)
                 localStorage.setItem('client', clientEmail)
                 maxRequest = userAccount['MAX REQUEST']
-                clientName.text(userAccount['NAME'])
+                clientName.text(currentUser.name)
                 $('.upload-file-btn').prop('href', userAccount['FOLDER'])
                 signUpDate = userAccount.DATE
                 res = true
@@ -547,4 +547,5 @@ console.log('working')
         return results;
       }
       
+
       

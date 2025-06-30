@@ -639,3 +639,11 @@ dialog.loader>div {
   .gap-16px {
     gap: 16px;
   }
+
+  .task-status-container .task-list :where(td:first-child, th:first-child) {
+    padding-left: 0;
+}
+
+.ml-2em {
+    margin-left: 2em;
+}

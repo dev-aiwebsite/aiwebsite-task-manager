@@ -595,6 +595,7 @@ dialog.loader>div {
     width: 100%;
     justify-content: center;
     align-items: center;
+    padding-top: 70px;
 }
 
 [data-tab] .tab-content-container [data-tab-content]:not(.active) {

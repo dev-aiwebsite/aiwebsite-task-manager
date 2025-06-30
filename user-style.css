@@ -455,16 +455,37 @@ width: 100%; */
     width: 100%;
 }
 
+.scrollable-table {
+    width: 100%;
+    text-align: center;
+    display: block;
+    max-height: 63vh;
+    overflow: scroll;
+    border: solid 1px #ccc;
+    border-radius: 20px;
+    position: relative;
+ }
+ .task-status-container .scrollable-table {
+    margin: 2em;
+ }
 .task-status-container .task-list {
     width: 100%;
     color: #808080;
-    margin: 2em;
     table-layout: fixed;
     text-align: center;
     border-collapse: collapse;
     font-size: 1rem;
-
-
+}
+.task-status-container .task-list thead {
+    position: sticky;
+    top: 0px;
+    background: #fff;
+    z-index: 9;
+    border-block: solid 1px #ccc;
+    box-shadow: 0 0px 0 0.1px #ccc, 0 0 0 2px #fff;
+}
+table.task-list tbody tr:nth-child(odd){
+    background: #f9f9f9;
 }
 
 .task-status-container .task-list .task-edit-btn {
@@ -480,7 +501,7 @@ width: 100%; */
 }
 
 .task-status-container .task-list :where(td, th) {
-    border-block: solid 1px #8080804D;
+    /* border-block: solid 1px #8080804D; */
     padding: 1em;
     text-align: start;
 }
@@ -569,6 +590,7 @@ dialog.loader>div {
 [data-tab="support"] .tab-content-container {
     padding: var(--gap);
     padding-top: 20px;
+    padding-bottom: 0;
 }   
 
 .tab .tab-btn {
@@ -595,7 +617,6 @@ dialog.loader>div {
     width: 100%;
     justify-content: center;
     align-items: center;
-    padding-top: 70px;
 }
 
 [data-tab] .tab-content-container [data-tab-content]:not(.active) {
@@ -605,8 +626,13 @@ dialog.loader>div {
 }
 
 .task-manager .main-content-wrapper .summary {
-    min-width: min( calc(100vw - 20px), 500px);
-    max-width: min( calc(100vw - 20px), 500px);
+    min-width: min(calc(100vw - 20px), 500px);
+    max-width: min(calc(100vw - 20px), 500px);
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: var(--gap);
 }
 
 .mt-20px {
@@ -640,10 +666,9 @@ dialog.loader>div {
     gap: 16px;
   }
 
-  .task-status-container .task-list :where(td:first-child, th:first-child) {
-    padding-left: 0;
-}
 
 .ml-2em {
     margin-left: 2em;
 }
+
+

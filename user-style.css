@@ -453,6 +453,9 @@ width: 100%; */
 
 .client-dashboard .task-status-container {
     width: 100%;
+    gap: 20px;
+    padding: 20px;
+    padding-top: 0;
 }
 
 .scrollable-table {
@@ -466,7 +469,7 @@ width: 100%; */
     position: relative;
  }
  .task-status-container .scrollable-table {
-    margin: 2em;
+ /* margin: 2em; */
  }
 .task-status-container .task-list {
     width: 100%;
@@ -668,7 +671,7 @@ dialog.loader>div {
 
 
 .ml-2em {
-    margin-left: 2em;
+    /* margin-left: 2em; */
 }
 
 

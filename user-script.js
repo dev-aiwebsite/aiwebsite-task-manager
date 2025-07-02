@@ -142,6 +142,19 @@ console.log('working')
                 })
 
 
+
+
+
+                const $orderFormCategory = orderForm.find('[name="order-category"]')
+                const $orderFormQueue = orderForm.find('[name="queue-position"]')
+        
+                $orderFormCategory.on('change', function (e) {
+
+                    let category = $(this).val()
+                    if(category == 'Quick action'){
+                        $orderFormQueue.val('1').trigger('change')
+                    }
+                })
                 orderForm.on('submit', function (e) {
                     e.preventDefault();
 
@@ -323,7 +336,6 @@ console.log('working')
             })
             const taskWithCalculatedDueDate = processTaskQueue(taskNotCompleted);
            
-            console.log(taskWithCalculatedDueDate, 'taskWithCalculatedDueDate')
             taskWithCalculatedDueDate.forEach((item) => {
                 // availableTaskCredit.text(maxRequest - data[clientEmail].length)
                     const taskItemTemplate = `<tr data-id="${item.ID}">

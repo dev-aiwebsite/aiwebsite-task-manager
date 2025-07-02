@@ -88,22 +88,23 @@ console.log('working')
                 })
 
                 clientEmail = localStorage.getItem('client')
-                if (clientEmail) {
-                    const userLogin = localStorage.getItem('awt-username')
-                    if(!userLogin) Logout()
+                loginDialog[0].showModal()
+                // if (clientEmail) {
+                //     const userLogin = localStorage.getItem('awt-username')
+                //     if(!userLogin) Logout()
 
-                    if (await AuthenticateUser(userLogin, {loader: true})) {
-                        INIT_dash(data, clientEmail)
-                        loginDialog[0].close()
+                //     if (await AuthenticateUser(userLogin, {loader: true})) {
+                //         INIT_dash(data, clientEmail)
+                //         loginDialog[0].close()
 
-                    } else {
-                        console.log('no data available')
-                        return
-                    }
+                //     } else {
+                //         console.log('no data available')
+                //         return
+                //     }
 
-                } else {
-                    loginDialog[0].showModal()
-                } 
+                // } else {
+                //     loginDialog[0].showModal()
+                // } 
 
                 // edit task
 
